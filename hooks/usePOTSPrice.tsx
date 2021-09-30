@@ -8,7 +8,6 @@ function getPOTSPrice(contract: any) {
   return async () => {
     const balance = [] = await contract.getReserves();
     const potsPrice = balance[1] / balance[0];
-    console.log(potsPrice)
     return potsPrice.toFixed(3);
     //return cakePrice;
   };

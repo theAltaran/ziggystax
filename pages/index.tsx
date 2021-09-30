@@ -53,7 +53,6 @@ function Home() {
   const BAL = (Number(preFeeBAL.data) * 0.95).toFixed(6)
   const potsPrice = usePOTSPrice();
   const TVL = (Number(potsPrice.data) * Number(cakeBal.data)).toFixed(3)
-console.log(TVL)
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const hostname = window.location.href;
