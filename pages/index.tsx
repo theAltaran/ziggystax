@@ -132,7 +132,7 @@ function Home() {
           <Center borderRadius="30px" boxShadow="lg" bg="#4C4C80" alignItems="center" width={{base: "90vw", md: "40vw"}}>
           <VStack p={5}>
               <Text color="#B4B3CC" p={1}>1. Enter POTS Amount Below and Approve Spend</Text>
-              <Input onChange={event => setCAKE(event.target.value)} value={CAKE} placeholder="Amount of POTS" />
+              <Input textColor="white" onChange={event => setCAKE(event.target.value)} value={CAKE} placeholder="Amount of POTS" />
               <HStack>
               {isConnected ? <>
               <Button variant="link" onClick={(e) => setCAKE(balCAKE.data)}>{balCAKE.data}</Button>
@@ -149,7 +149,7 @@ function Home() {
           <Center borderRadius="30px" boxShadow="lg" bg="#4C4C80" alignItems="center" width={{base: "90vw", md: "40vw"}}>
           <VStack p={5}>
               <Text color="#B4B3CC" p={1}>2. Exchange POTS To Hire Cadets. Cadets mine the moon for more POTS!</Text>
-              <Input onChange={event => setMiners(event.target.value)} value={miners} placeholder="Amount of POTS" />
+              <Input textColor="white" onChange={event => setMiners(event.target.value)} value={miners} placeholder="Amount of POTS" />
               <HStack>
               {isConnected ? <>
               <Button variant="link" onClick={(e) => setMiners(balCAKE.data)}>{balCAKE.data}</Button>
