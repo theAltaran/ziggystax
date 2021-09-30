@@ -31,6 +31,7 @@ import useBAL from "../hooks/useAvailBalance"
 import useCountdown from "../hooks/useCountdown";
 import useCakeApproval from "../hooks/useCakeApproval";
 import useCakeBaking from "../hooks/useCakeBaking";
+import usePOTSPrice from "../hooks/usePOTSPrice";
 var isLoading = false;
 function Home() {
   
@@ -50,7 +51,9 @@ function Home() {
   const isCakeApproved = useCakeApproval("0x219A0De2813d8DEee2dBcb2cc2A738e36423dFfF", account);
   const cakeBal = useCakeBaking();
   const BAL = (Number(preFeeBAL.data) * 0.95).toFixed(6)
-  
+  const potsPrice = usePOTSPrice();
+  const TVL = (Number(potsPrice.data) * Number(cakeBal.data)).toFixed(3)
+console.log(TVL)
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const hostname = window.location.href;
@@ -116,12 +119,13 @@ function Home() {
             </HStack>
           </Center>
           <Center>
-            <HStack>
+            <VStack>
               {isConnected ?<>
-            <Text color="#B4B3CC" fontSize={{base: "md", md: "xl"}} p={3}>{cakeBal.data} Total POTS being mined.</Text></> :
+            <Text color="#B4B3CC" fontSize={{base: "md", md: "xl"}} px={3} py={1}>{cakeBal.data} Total POTS being mined.</Text>
+            <Text color="#B4B3CC" fontSize={{base: "md", md: "xl"}} px={3} pb={2}>${TVL} Total Value Locked</Text></> :
              <><Text color="#B4B3CC" p={1}>Please Connect To MetaMask.</Text></>
               }
-            </HStack>
+            </VStack>
           </Center>
             <Center>
             <HStack pb={5}>
@@ -137,7 +141,7 @@ function Home() {
               <Input textColor="white" onChange={event => setCAKE(event.target.value)} value={CAKE} placeholder="Amount of POTS" />
               <HStack>
               {isConnected ? <>
-              <Button variant="link" onClick={(e) => setCAKE(balCAKE.data)}>{balCAKE.data}</Button>
+              <Button colorScheme="yellow" variant="link" onClick={(e) => setCAKE(balCAKE.data)}>{balCAKE.data}</Button>
               <Text color="#B4B3CC" p={1}>available POTS</Text></> :
               <Spinner mb={3} color="blue.500" />
               }
@@ -154,7 +158,7 @@ function Home() {
               <Input textColor="white" onChange={event => setMiners(event.target.value)} value={miners} placeholder="Amount of POTS" />
               <HStack>
               {isConnected ? <>
-              <Button variant="link" onClick={(e) => setMiners(balCAKE.data)}>{balCAKE.data}</Button>
+              <Button colorScheme="yellow" variant="link" onClick={(e) => setMiners(balCAKE.data)}>{balCAKE.data}</Button>
               <Text color="#B4B3CC" p={1}>available POTS</Text></> :
               <Spinner mb={3} color="blue.500" />
               }
