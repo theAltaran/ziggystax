@@ -10,7 +10,7 @@ function getBAL(contract: any, address: any) {
     const bal = await contract.etPotsSinceBake(address);
     const sell = await contract.calculatePotsSell(bal);
     // const final = (Number(sell) * 0.95).toFixed(0)
-    return parseBalance(sell, 18, 2)
+    return parseBalance(sell, 18, 6)
   };
 }
 
