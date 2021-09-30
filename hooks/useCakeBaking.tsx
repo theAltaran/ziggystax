@@ -20,7 +20,7 @@ export default function useCakeBaking(
     !!contract;
 
   const result = useSWR(
-    shouldFetch ? ["cakeBalance"] : null,
+    shouldFetch ? ["potsBalance"] : null,
     getCakeBaking(contract),
     {
       suspense,

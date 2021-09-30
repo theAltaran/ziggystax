@@ -38,8 +38,8 @@ function Home() {
   const triedToEagerConnect = useEagerConnect();
   const [CAKE, setCAKE] = useState('');
   const [miners, setMiners] = useState('');
-  const balCAKE = useTokenBalance(account, "0x9a946c3cb16c08334b69ae249690c236ebd5583e")
-  const cakeContract = useTokenContract("0x9a946c3cb16c08334b69ae249690c236ebd5583e")
+  const balCAKE = useTokenBalance(account, "0x3fcca8648651e5b974dd6d3e50f61567779772a8")
+  const cakeContract = useTokenContract("0x3fcca8648651e5b974dd6d3e50f61567779772a8")
   const miner = useMinter()
   const isConnected = typeof account === "string" && !!library;
   const router = useRouter()
@@ -47,7 +47,7 @@ function Home() {
   const FPS = useFPS(account)
   const preFeeBAL = useBAL(account)
   const date = useCountdown(account)
-  const isCakeApproved = useCakeApproval("0x03414b0E526A5D6C2E1fC813724448a871598287", account);
+  const isCakeApproved = useCakeApproval("0x219A0De2813d8DEee2dBcb2cc2A738e36423dFfF", account);
   const cakeBal = useCakeBaking();
   const BAL = (Number(preFeeBAL.data) * 0.95).toFixed(2)
   useEffect(() => {
@@ -61,7 +61,7 @@ function Home() {
 
   async function approveCAKE(amount: any) {
     isLoading = true;
-    const approve = await cakeContract.approve("0x03414b0E526A5D6C2E1fC813724448a871598287", amount)
+    const approve = await cakeContract.approve("0x219A0De2813d8DEee2dBcb2cc2A738e36423dFfF", amount)
   }
   async function investCAKE(amount: any){
     const hostname = window.location.href;
@@ -73,7 +73,7 @@ function Home() {
       } else {
          ref = account
       }
-    const invest = await miner.investBlizzard(ref, amount)
+    const invest = await miner.investPots(ref, amount)
   }
   async function compoundCAKE(){
     const hostname = window.location.href;
@@ -85,17 +85,17 @@ function Home() {
       } else {
          ref = account
       }
-    const compound = await miner.compoundBlizzard(ref)
+    const compound = await miner.compoundPots(ref)
   }
   async function sellCAKE(){
-    const pop = await miner.sellBlizzard()
+    const pop = await miner.sellPots()
   }
 
   return (
-    <Box bg="blue.500" minW="100vw" minH="100vh">
+    <Box bg="#000057" opacity="0.87" minW="100vw" minH="100vh">
     <>
       <Head>
-        <title>YetiStax xBLZD Minting</title>
+        <title>Ziggystax POTS Minting</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
           <Center pt={5}>
@@ -108,15 +108,15 @@ function Home() {
           <Box borderRadius="30px" mt="2em" boxShadow="lg" bg="white" alignItems="center" width={{base: "90vw", md: "40vw"}}>
           <Center>
             <HStack>
-            <Img maxW="100px" maxH="100px" p="1em" src="/blizzard.png" />
-            <Heading fontSize={{base: "xl", md: "3xl"}} color="gray.500" p={{base: 0, md: 5}}>YetiStax xBLZD Minter</Heading>
-            <Img maxW="100px" maxH="100px" p="1em" src="/blizzard.png" />
+            <Img maxW="100px" maxH="100px" p="1em" src="/pots.svg" />
+            <Heading fontSize={{base: "xl", md: "3xl"}} color="gray.500" p={{base: 0, md: 5}}>Ziggystax POTS Minter</Heading>
+            <Img maxW="100px" maxH="100px" p="1em" src="/pots.svg" />
             </HStack>
           </Center>
           <Center>
             <HStack>
               {isConnected ?<>
-            <Text color="gray.500" fontSize={{base: "md", md: "xl"}} p={3}>{cakeBal.data} Total xBLZD being chilled.</Text></> :
+            <Text color="gray.500" fontSize={{base: "md", md: "xl"}} p={3}>{cakeBal.data} Total POTS being mined.</Text></> :
              <><Text color="gray.500" p={1}>Please Connect To MetaMask.</Text></>
               }
             </HStack>
@@ -131,55 +131,55 @@ function Home() {
         
           <Center borderRadius="30px" boxShadow="lg" bg="white" alignItems="center" width={{base: "90vw", md: "40vw"}}>
           <VStack p={5}>
-              <Text color="gray.500" p={1}>1. Enter xBLZD Amount Below and Approve Spend</Text>
-              <Input onChange={event => setCAKE(event.target.value)} value={CAKE} placeholder="Amount of xBLZD" />
+              <Text color="gray.500" p={1}>1. Enter POTS Amount Below and Approve Spend</Text>
+              <Input onChange={event => setCAKE(event.target.value)} value={CAKE} placeholder="Amount of POTS" />
               <HStack>
               {isConnected ? <>
               <Button variant="link" onClick={(e) => setCAKE(balCAKE.data)}>{balCAKE.data}</Button>
-              <Text color="gray.500" p={1}>available xBLZD</Text></> :
+              <Text color="gray.500" p={1}>available POTS</Text></> :
               <Spinner mb={3} color="blue.500" />
               }
               </HStack>
               {!isCakeApproved.data ? 
-              <Button isLoading={isLoading} onClick={() => approveCAKE(ethers.utils.parseEther(CAKE))}colorScheme="blue">Approve xBLZD Spend</Button> :
-              <Button isLoading={false} onClick={() => approveCAKE(ethers.utils.parseEther(CAKE))}colorScheme="blue">Approve Additional xBLZD Spend</Button>
+              <Button isLoading={isLoading} onClick={() => approveCAKE(ethers.utils.parseEther(CAKE))}colorScheme="blue">Approve POTS Spend</Button> :
+              <Button isLoading={false} onClick={() => approveCAKE(ethers.utils.parseEther(CAKE))}colorScheme="blue">Approve Additional POTS Spend</Button>
               }
             </VStack>
           </Center>
           <Center borderRadius="30px" boxShadow="lg" bg="white" alignItems="center" width={{base: "90vw", md: "40vw"}}>
           <VStack p={5}>
-              <Text color="gray.500" p={1}>2. Exchange xBLZD To Hire Yetis. Yetis make more xBLZD!</Text>
-              <Input onChange={event => setMiners(event.target.value)} value={miners} placeholder="Amount of xBLZD" />
+              <Text color="gray.500" p={1}>2. Exchange POTS To Hire Cadets. Cadets mine the moon for more POTS!</Text>
+              <Input onChange={event => setMiners(event.target.value)} value={miners} placeholder="Amount of POTS" />
               <HStack>
               {isConnected ? <>
               <Button variant="link" onClick={(e) => setMiners(balCAKE.data)}>{balCAKE.data}</Button>
-              <Text color="gray.500" p={1}>available xBLZD</Text></> :
+              <Text color="gray.500" p={1}>available POTS</Text></> :
               <Spinner mb={3} color="blue.500" />
               }
               </HStack>
-              <Button onClick={() => investCAKE(ethers.utils.parseEther(miners))} colorScheme="blue">Hire Yetis</Button>
+              <Button onClick={() => investCAKE(ethers.utils.parseEther(miners))} colorScheme="blue">Hire Cadets</Button>
             </VStack>
           </Center>
           <Center borderRadius="30px" boxShadow="lg" bg="white" alignItems="center" width={{base: "90vw", md: "40vw"}}>
           <VStack p={5}>
               {isConnected ? <>
-              <Text color="gray.500" fontSize="2xl" fontWeight="semibold">{myMiners.data} Hired Yetis</Text>
-              <Text color="gray.500" fontSize="2xl" fontWeight="semibold">{BAL} Chilled xBLZD</Text>
-              <Text color="gray.500" fontSize={{base:"lgs", md:"2xl"}} fontWeight="semibold">Your xBLZD will be fully chilled on:<br/> {date.data}</Text></> :
+              <Text color="gray.500" fontSize="2xl" fontWeight="semibold">{myMiners.data} Hired Cadets</Text>
+              <Text color="gray.500" fontSize="2xl" fontWeight="semibold">{BAL} Mined POTS</Text>
+              <Text color="gray.500" fontSize={{base:"lgs", md:"2xl"}} fontWeight="semibold">Your POTS will be fully mined on:<br/> {date.data}</Text></> :
               <Spinner mb={3} color="blue.500" />
               }
             <SimpleGrid columns={{base:1, md:2}} spacing={3}>
-            <Button onClick={() => compoundCAKE()} colorScheme="blue">Hire More Yetis</Button>
-            <Button onClick={() => sellCAKE()} colorScheme="blue">Pocket Chilled xBLZD</Button>
+            <Button onClick={() => compoundCAKE()} colorScheme="blue">Hire More Cadets</Button>
+            <Button onClick={() => sellCAKE()} colorScheme="blue">Pocket mined POTS</Button>
             </SimpleGrid>
             </VStack>
     
           </Center>
           <Center mb={5} borderRadius="30px" boxShadow="lg" bg="white" alignItems="center" width={{base: "90vw", md: "40vw"}}>
           <VStack p={5}>
-              <Text color="gray.500" fontSize="md" fontWeight="semibold">Use your referral link to earn free yetis!</Text>
+              <Text color="gray.500" fontSize="md" fontWeight="semibold">Use your referral link to earn free Cadets!</Text>
               {isConnected ? <>
-              <Link href={`https://yetistax.money?ref=${account}`}><Text color="gray.500" fontSize="10px" fontWeight="semibold">https://yetistax.money?ref={account}</Text></Link></> :
+              <Link href={`https://ziggystax.money?ref=${account}`}><Text color="gray.500" fontSize="10px" fontWeight="semibold">https://ziggystax.money?ref={account}</Text></Link></> :
               <Spinner mb={3} color="blue.500" />
               }
             </VStack>

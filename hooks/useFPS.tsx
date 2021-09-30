@@ -5,7 +5,7 @@ import useMinter from "./useMinter";
 
 function getFPS(contract: any, address: any) {
   return async (_: string, address: string) => {
-    const fps = await contract.getCakeSinceCakeBake(address);
+    const fps = await contract.etPotsSinceBake(address);
     return fps.toNumber();
   };
 }
