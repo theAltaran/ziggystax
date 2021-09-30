@@ -92,7 +92,7 @@ function Home() {
   }
 
   return (
-    <Box bg="#000057" opacity="0.87" minW="100vw" minH="100vh">
+    <Box bg="#393960" minW="100vw" minH="100vh">
     <>
       <Head>
         <title>Ziggystax POTS Minting</title>
@@ -100,86 +100,86 @@ function Home() {
       </Head>
           <Center pt={5}>
           <VStack>
-          <Button colorScheme="gray"><Account triedToEagerConnect={triedToEagerConnect} /></Button>
+          <Button colorScheme="yellow"><Account triedToEagerConnect={triedToEagerConnect} /></Button>
           <Heading px={10} size="md" as="a" href="https://cakestax.money" color="white">Looking to bake CAKE? Click here for CakeStax.</Heading>
           </VStack>
           </Center>
           <SimpleGrid column={5} spacing={5} justifyItems="center">
-          <Box borderRadius="30px" mt="2em" boxShadow="lg" bg="white" alignItems="center" width={{base: "90vw", md: "40vw"}}>
+          <Box borderRadius="30px" mt="2em" boxShadow="lg" bg="#4C4C80" alignItems="center" width={{base: "90vw", md: "40vw"}}>
           <Center>
             <HStack>
             <Img maxW="100px" maxH="100px" p="1em" src="/pots.svg" />
-            <Heading fontSize={{base: "xl", md: "3xl"}} color="gray.500" p={{base: 0, md: 5}}>Ziggystax POTS Minter</Heading>
+            <Heading fontSize={{base: "xl", md: "3xl"}} color="#B4B3CC" p={{base: 0, md: 5}}>Ziggystax POTS Minter</Heading>
             <Img maxW="100px" maxH="100px" p="1em" src="/pots.svg" />
             </HStack>
           </Center>
           <Center>
             <HStack>
               {isConnected ?<>
-            <Text color="gray.500" fontSize={{base: "md", md: "xl"}} p={3}>{cakeBal.data} Total POTS being mined.</Text></> :
-             <><Text color="gray.500" p={1}>Please Connect To MetaMask.</Text></>
+            <Text color="#B4B3CC" fontSize={{base: "md", md: "xl"}} p={3}>{cakeBal.data} Total POTS being mined.</Text></> :
+             <><Text color="#B4B3CC" p={1}>Please Connect To MetaMask.</Text></>
               }
             </HStack>
           </Center>
             <Center>
             <HStack pb={5}>
-            <Badge ml="1" fontSize="1em" colorScheme="green">3% DAILY</Badge>
-            <Badge ml="1" fontSize="1em" colorScheme="green">1,095% APR</Badge>
+            <Badge ml="1" fontSize="1em" colorScheme="yellow">3% DAILY</Badge>
+            <Badge ml="1" fontSize="1em" colorScheme="yellow">1,095% APR</Badge>
             </HStack>
             </Center>
           </Box>
         
-          <Center borderRadius="30px" boxShadow="lg" bg="white" alignItems="center" width={{base: "90vw", md: "40vw"}}>
+          <Center borderRadius="30px" boxShadow="lg" bg="#4C4C80" alignItems="center" width={{base: "90vw", md: "40vw"}}>
           <VStack p={5}>
-              <Text color="gray.500" p={1}>1. Enter POTS Amount Below and Approve Spend</Text>
+              <Text color="#B4B3CC" p={1}>1. Enter POTS Amount Below and Approve Spend</Text>
               <Input onChange={event => setCAKE(event.target.value)} value={CAKE} placeholder="Amount of POTS" />
               <HStack>
               {isConnected ? <>
               <Button variant="link" onClick={(e) => setCAKE(balCAKE.data)}>{balCAKE.data}</Button>
-              <Text color="gray.500" p={1}>available POTS</Text></> :
+              <Text color="#B4B3CC" p={1}>available POTS</Text></> :
               <Spinner mb={3} color="blue.500" />
               }
               </HStack>
               {!isCakeApproved.data ? 
-              <Button isLoading={isLoading} onClick={() => approveCAKE(ethers.utils.parseEther(CAKE))}colorScheme="blue">Approve POTS Spend</Button> :
-              <Button isLoading={false} onClick={() => approveCAKE(ethers.utils.parseEther(CAKE))}colorScheme="blue">Approve Additional POTS Spend</Button>
+              <Button isLoading={isLoading} onClick={() => approveCAKE(ethers.utils.parseEther(CAKE))}colorScheme="yellow">Approve POTS Spend</Button> :
+              <Button isLoading={false} onClick={() => approveCAKE(ethers.utils.parseEther(CAKE))}colorScheme="yellow">Approve Additional POTS Spend</Button>
               }
             </VStack>
           </Center>
-          <Center borderRadius="30px" boxShadow="lg" bg="white" alignItems="center" width={{base: "90vw", md: "40vw"}}>
+          <Center borderRadius="30px" boxShadow="lg" bg="#4C4C80" alignItems="center" width={{base: "90vw", md: "40vw"}}>
           <VStack p={5}>
-              <Text color="gray.500" p={1}>2. Exchange POTS To Hire Cadets. Cadets mine the moon for more POTS!</Text>
+              <Text color="#B4B3CC" p={1}>2. Exchange POTS To Hire Cadets. Cadets mine the moon for more POTS!</Text>
               <Input onChange={event => setMiners(event.target.value)} value={miners} placeholder="Amount of POTS" />
               <HStack>
               {isConnected ? <>
               <Button variant="link" onClick={(e) => setMiners(balCAKE.data)}>{balCAKE.data}</Button>
-              <Text color="gray.500" p={1}>available POTS</Text></> :
+              <Text color="#B4B3CC" p={1}>available POTS</Text></> :
               <Spinner mb={3} color="blue.500" />
               }
               </HStack>
-              <Button onClick={() => investCAKE(ethers.utils.parseEther(miners))} colorScheme="blue">Hire Cadets</Button>
+              <Button onClick={() => investCAKE(ethers.utils.parseEther(miners))} colorScheme="yellow">Hire Cadets</Button>
             </VStack>
           </Center>
-          <Center borderRadius="30px" boxShadow="lg" bg="white" alignItems="center" width={{base: "90vw", md: "40vw"}}>
+          <Center borderRadius="30px" boxShadow="lg" bg="#4C4C80" alignItems="center" width={{base: "90vw", md: "40vw"}}>
           <VStack p={5}>
               {isConnected ? <>
-              <Text color="gray.500" fontSize="2xl" fontWeight="semibold">{myMiners.data} Hired Cadets</Text>
-              <Text color="gray.500" fontSize="2xl" fontWeight="semibold">{BAL} Mined POTS</Text>
-              <Text color="gray.500" fontSize={{base:"lgs", md:"2xl"}} fontWeight="semibold">Your POTS will be fully mined on:<br/> {date.data}</Text></> :
+              <Text color="#B4B3CC" fontSize="2xl" fontWeight="semibold">{myMiners.data} Hired Cadets</Text>
+              <Text color="#B4B3CC" fontSize="2xl" fontWeight="semibold">{BAL} Mined POTS</Text>
+              <Text color="#B4B3CC" fontSize={{base:"lgs", md:"2xl"}} fontWeight="semibold">Your POTS will be fully mined on:<br/> {date.data}</Text></> :
               <Spinner mb={3} color="blue.500" />
               }
             <SimpleGrid columns={{base:1, md:2}} spacing={3}>
-            <Button onClick={() => compoundCAKE()} colorScheme="blue">Hire More Cadets</Button>
-            <Button onClick={() => sellCAKE()} colorScheme="blue">Pocket mined POTS</Button>
+            <Button onClick={() => compoundCAKE()} colorScheme="yellow">Hire More Cadets</Button>
+            <Button onClick={() => sellCAKE()} colorScheme="yellow">Pocket mined POTS</Button>
             </SimpleGrid>
             </VStack>
     
           </Center>
-          <Center mb={5} borderRadius="30px" boxShadow="lg" bg="white" alignItems="center" width={{base: "90vw", md: "40vw"}}>
+          <Center mb={5} borderRadius="30px" boxShadow="lg" bg="#4C4C80" alignItems="center" width={{base: "90vw", md: "40vw"}}>
           <VStack p={5}>
-              <Text color="gray.500" fontSize="md" fontWeight="semibold">Use your referral link to earn free Cadets!</Text>
+              <Text color="#B4B3CC" fontSize="md" fontWeight="semibold">Use your referral link to earn free Cadets!</Text>
               {isConnected ? <>
-              <Link href={`https://ziggystax.money?ref=${account}`}><Text color="gray.500" fontSize="10px" fontWeight="semibold">https://ziggystax.money?ref={account}</Text></Link></> :
+              <Link href={`https://ziggystax.money?ref=${account}`}><Text color="#B4B3CC" fontSize="10px" fontWeight="semibold">https://ziggystax.money?ref={account}</Text></Link></> :
               <Spinner mb={3} color="blue.500" />
               }
             </VStack>
