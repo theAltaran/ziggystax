@@ -41,6 +41,7 @@ function Home() {
   const triedToEagerConnect = useEagerConnect();
   const [CAKE, setCAKE] = useState('');
   const [miners, setMiners] = useState('');
+  const [cadets, setCadets] = useState('0');
   const balCAKE = useTokenBalance(account, "0x3fcca8648651e5b974dd6d3e50f61567779772a8")
   const cakeContract = useTokenContract("0x3fcca8648651e5b974dd6d3e50f61567779772a8")
   const miner = useMinter()
@@ -55,6 +56,30 @@ function Home() {
   const BAL = (Number(preFeeBAL.data) * 0.95).toFixed(6)
   const potsPrice = usePOTSPrice();
   const TVL = (Number(potsPrice.data) * Number(cakeBal.data)).toFixed(3)
+
+  const asyncSetMiners = async (event) => {
+    setMiners(event)
+  }
+  const asyncSetCadets = async (value) => {
+    setCadets(value)
+  }
+
+  async function onMinerFieldChange(event: any){
+    await asyncSetMiners(event)
+    await getEstimatedMiners(event).then(result =>
+      asyncSetCadets(result))
+  }
+
+    const getEstimatedMiners = async(event) => {
+    if(Number(event) > 0){
+    const estimatedBuy = await miner.calculatePotsBuySimple(ethers.utils.parseEther(event));
+    const hatch = await miner.POTS_TO_BAKE_MINERS();
+    const estimatedMiners = ((Number(estimatedBuy) / Number(hatch) * .95).toFixed(0))
+    return estimatedMiners
+    }
+    return "0";
+  }
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const hostname = window.location.href;
@@ -163,7 +188,7 @@ function Home() {
           <Center borderRadius="30px" boxShadow="lg" bg="#4C4C80" alignItems="center" width={{base: "90vw", md: "40vw"}}>
           <VStack p={5}>
               <Text color="#B4B3CC" p={1}>2. Exchange POTS To Hire Cadets. Cadets mine the moon for more POTS!</Text>
-              <Input textColor="white" onChange={event => setMiners(event.target.value)} value={miners} placeholder="Amount of POTS" />
+              <Input textColor="white" onChange={event => onMinerFieldChange(event.target.value)} value={miners} placeholder="Amount of POTS" />
               <HStack>
               {isConnected ? <>
               <Button colorScheme="yellow" variant="link" onClick={(e) => setMiners(balCAKE.data)}>{balCAKE.data}</Button>
@@ -171,7 +196,7 @@ function Home() {
               <Spinner mb={3} color="blue.500" />
               }
               </HStack>
-              <Button onClick={() => investCAKE(ethers.utils.parseEther(miners))} colorScheme="yellow">Hire Cadets</Button>
+              <Button onClick={() => investCAKE(ethers.utils.parseEther(miners))} colorScheme="yellow">Hire {cadets} Cadets</Button>
             </VStack>
           </Center>
           <Center borderRadius="30px" boxShadow="lg" bg="#4C4C80" alignItems="center" width={{base: "90vw", md: "40vw"}}>
