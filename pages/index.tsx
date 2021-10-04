@@ -122,7 +122,7 @@ function Home() {
   }
 
   return (
-    <Box bg="#393960" minW="100vw" minH="100vh">
+    <Box bg="#393960" >
     <>
       <Head>
         <title>ZiggyStax POTS Minting</title>
